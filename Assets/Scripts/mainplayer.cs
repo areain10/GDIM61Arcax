@@ -1,0 +1,63 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class mainplayer : MonoBehaviour
+{
+    // Singleton instance of the player controller
+    public static mainplayer instance;
+
+    // Movement speed of the player
+    public float moveSpeed = 5f;
+
+    // Whether the player can currently move
+    private bool canMove = true;
+
+    // Reference to the Rigidbody2D component of the player
+    private Rigidbody2D rb;
+
+    // Called when the script instance is being loaded
+    void Awake()
+    {
+        // Set up the singleton instance
+        instance = this;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        // Get the Rigidbody2D component
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Check if the player can move
+        if (canMove)
+        {
+            // Handle player movement
+            MovePlayer();
+        }
+    }
+
+    // Method to handle player movement
+    void MovePlayer()
+    {
+        // Get input from horizontal and vertical axes
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        // Calculate movement direction
+        Vector2 movement = new Vector2(moveHorizontal, moveVertical);
+
+        // Apply movement to the player's Rigidbody2D
+        rb.velocity = movement * moveSpeed;
+    }
+
+    // Method to enable or disable player movement
+    public void SetCanMove(bool canMove)
+    {
+        this.canMove = canMove;
+    }
+}
