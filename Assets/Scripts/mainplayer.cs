@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerStates { Walking, Interacting }
 public class mainplayer : MonoBehaviour
 {
     // Singleton instance of the player controller
@@ -18,6 +19,8 @@ public class mainplayer : MonoBehaviour
 
     //Sprite REnderer
     public SpriteManager spriteManager;
+
+    private PlayerStates playerState;
 
     float lastHInput;
     // Called when the script instance is being loaded
@@ -40,7 +43,7 @@ public class mainplayer : MonoBehaviour
     void Update()
     {
         // Check if the player can move
-        if (canMove)
+        if (playerState == PlayerStates.Walking)
         {
             // Handle player movement
             MovePlayer();
@@ -62,6 +65,7 @@ public class mainplayer : MonoBehaviour
         
         // Apply movement to the player's Rigidbody2D
         rb.velocity = movement * moveSpeed;
+        
 
         lastHInput += moveHorizontal;
     }
@@ -70,5 +74,11 @@ public class mainplayer : MonoBehaviour
     public void SetCanMove(bool canMove)
     {
         this.canMove = canMove;
+    }
+
+    public void UpdatePlayerState(PlayerStates playState)
+    {
+        playerState = playState;
+        rb.velocity = Vector2.zero;
     }
 }

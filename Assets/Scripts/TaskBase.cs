@@ -54,7 +54,7 @@ public class TaskBase : MonoBehaviour
             taskCanvas.SetActive(true);
 
             // Lock player movement or perform other necessary actions
-            mainplayer.instance.SetCanMove(false); // Example function, adjust according to your player controller
+            mainplayer.instance.UpdatePlayerState(PlayerStates.Interacting); // Example function, adjust according to your player controller
 
             // Set task as active
             taskActive = true;
@@ -68,7 +68,7 @@ public class TaskBase : MonoBehaviour
         taskCanvas.SetActive(false);
 
         // Unlock player movement or perform other necessary actions
-        mainplayer.instance.SetCanMove(true); // Example function, adjust according to your player controller
+        mainplayer.instance.UpdatePlayerState(PlayerStates.Walking); // Example function, adjust according to your player controller
 
         // Set task as inactive
         taskActive = false;
