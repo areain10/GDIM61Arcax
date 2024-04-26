@@ -7,15 +7,22 @@ using UnityEngine.UI;
 
 public class ConversationUI : MonoBehaviour
 {
+    //singleton
     public static ConversationUI instance;
+
+    //npc data
     public Image npcSprite;
-    public TextMeshProUGUI speech;
     private conversationData npcData;
     private ConversationSO convoS;
+
+    //convo variables
     private int[] convoStep = { -2,-2};
     private bool isPlayerTalking;
     private bool[] convoDone;
     private bool inconvo;
+
+    //uitext 
+    public TextMeshProUGUI speech;
     private void Awake()
     {
         instance = this;
@@ -24,7 +31,7 @@ public class ConversationUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        inconvo = false;
     }
 
     // Update is called once per frame
@@ -35,22 +42,26 @@ public class ConversationUI : MonoBehaviour
 
     public void StartConvo(conversationData data)
     {
-        convoDone = new bool[2];
-        convoDone[0] = false; convoDone[1] = false;
-        inconvo = false;
+        //initialize variables, (should be simplified later
         convoStep = new int[2] { 0,0};
         convoDone = new bool[2];
         npcSprite.sprite = data.sprite;
         convoS = data.so;
+
+        //Check who is starting the conversation
         if(convoS.start == 0) { isPlayerTalking = true; } else { isPlayerTalking = false; }
         inconvo = true;
+
+        //update convo
         updateConvo();
        
 
     }
 
+    //update convo text when the user presses the left mouse button
     void checkForUpdate()
     {
+        
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             if(!convoDone.All(x => x))
@@ -67,17 +78,21 @@ public class ConversationUI : MonoBehaviour
 
     private void updateConvo()
     {
+        //check who is talking
         switch (isPlayerTalking)
         {
+            //if player is talking, show player dialogue
             case true:speech.text = convoS.PlayerDialogue[convoStep[0]];
                 if ((convoStep[0] + 1) == convoS.PlayerDialogue.Length)
                 {
+                    //if player dialogue ended then change done
                     convoDone[0] = true;
                 }
                 else { convoStep[0] += 1;}
 
 
                 break;
+            //same thing but with npc dialogue
             case false:speech.text = convoS.NPCDialogue[convoStep[1]];
                 if ((convoStep[1] + 1) == convoS.NPCDialogue.Length)
                 {
@@ -86,10 +101,13 @@ public class ConversationUI : MonoBehaviour
                 else { convoStep[1] += 1; }
                 break;
         }
+        //change player is talking
         isPlayerTalking = !isPlayerTalking;
         
         
     }
+
+    //exit conversation
     public void exitConverstion()
     {
         gameObject.SetActive(false);
