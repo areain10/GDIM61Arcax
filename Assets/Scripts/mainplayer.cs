@@ -16,6 +16,10 @@ public class mainplayer : MonoBehaviour
     // Reference to the Rigidbody2D component of the player
     private Rigidbody2D rb;
 
+    //Sprite REnderer
+    public SpriteManager spriteManager;
+
+    float lastHInput;
     // Called when the script instance is being loaded
     void Awake()
     {
@@ -28,6 +32,8 @@ public class mainplayer : MonoBehaviour
     {
         // Get the Rigidbody2D component
         rb = GetComponent<Rigidbody2D>();
+
+        lastHInput = -1f;
     }
 
     // Update is called once per frame
@@ -48,11 +54,16 @@ public class mainplayer : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
+        if(moveHorizontal > 0) { spriteManager.toggleFlip(true); }
+        else if(moveHorizontal < 0) { spriteManager.toggleFlip(false); }
+
         // Calculate movement direction
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-
+        
         // Apply movement to the player's Rigidbody2D
         rb.velocity = movement * moveSpeed;
+
+        lastHInput += moveHorizontal;
     }
 
     // Method to enable or disable player movement
