@@ -44,7 +44,9 @@ public class conversationHandler : MonoBehaviour
         {
             conversationCanvas.gameObject.SetActive(true);
             mainplayer.instance.UpdatePlayerState(PlayerStates.Interacting);
+            
             ConversationUI.instance.StartConvo(conversationData);
+            ConversationUI.instance.inconvo = true;
             return true;
         }
         return false;

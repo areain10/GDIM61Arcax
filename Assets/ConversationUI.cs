@@ -19,19 +19,22 @@ public class ConversationUI : MonoBehaviour
     private int[] convoStep = { -2,-2};
     private bool isPlayerTalking;
     private bool[] convoDone;
-    private bool inconvo;
+    public bool inconvo;
 
     //uitext 
     public TextMeshProUGUI speech;
     private void Awake()
     {
         instance = this;
+        inconvo = false;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        inconvo = false;
+        
+        
+        Debug.Log(inconvo);
     }
 
     // Update is called once per frame
@@ -51,6 +54,7 @@ public class ConversationUI : MonoBehaviour
         //Check who is starting the conversation
         if(convoS.start == 0) { isPlayerTalking = true; } else { isPlayerTalking = false; }
         inconvo = true;
+        Debug.Log(inconvo);
 
         //update convo
         updateConvo();
@@ -61,8 +65,8 @@ public class ConversationUI : MonoBehaviour
     //update convo text when the user presses the left mouse button
     void checkForUpdate()
     {
-        
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        inconvo = true;
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             if(!convoDone.All(x => x))
             {
@@ -78,6 +82,7 @@ public class ConversationUI : MonoBehaviour
 
     private void updateConvo()
     {
+        inconvo = true;
         //check who is talking
         switch (isPlayerTalking)
         {
