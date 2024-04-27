@@ -57,15 +57,15 @@ public class mainplayer : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        if(moveHorizontal > 0) { spriteManager.toggleFlip(true); }
-        else if(moveHorizontal < 0) { spriteManager.toggleFlip(false); }
+        if (moveHorizontal > 0) { spriteManager.toggleFlip(true); }
+        else if (moveHorizontal < 0) { spriteManager.toggleFlip(false); }
 
         // Calculate movement direction
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-        
+
         // Apply movement to the player's Rigidbody2D
         rb.velocity = movement * moveSpeed;
-        
+
 
         lastHInput += moveHorizontal;
     }
