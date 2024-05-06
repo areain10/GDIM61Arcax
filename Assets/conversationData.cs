@@ -8,6 +8,8 @@ public class conversationData : MonoBehaviour
     //pixelated picture sprite
     public Sprite sprite;
 
+    public string NPCName;
+
     //scriptable object of conversation
     public ConversationSO so;
 }
