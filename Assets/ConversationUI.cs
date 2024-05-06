@@ -26,6 +26,7 @@ public class ConversationUI : MonoBehaviour
     //uielements
     public TextMeshProUGUI speech;
     public Image playerSprite;
+    public TextMeshProUGUI NPCName;
     private void Awake()
     {
         instance = this;
@@ -53,9 +54,11 @@ public class ConversationUI : MonoBehaviour
         convoDone = new bool[2];
         npcSprite.sprite = data.sprite;
         convoS = data.so;
+        NPCName.text = convoS.NPCName;
+        Time.timeScale = 0;
 
         //Check who is starting the conversation
-        if(convoS.start == 0) { isPlayerTalking = true; } else { isPlayerTalking = false; }
+        if (convoS.start == 0) { isPlayerTalking = true; } else { isPlayerTalking = false; }
         inconvo = true;
         Debug.Log(inconvo);
 
@@ -119,6 +122,7 @@ public class ConversationUI : MonoBehaviour
     //exit conversation
     public void exitConverstion()
     {
+        Time.timeScale = 1;
         gameObject.SetActive(false);
         mainplayer.instance.UpdatePlayerState(PlayerStates.Walking);
     }

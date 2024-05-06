@@ -17,4 +17,8 @@ public class ConversationSO : ScriptableObject
 
     // npc dialogue
     public string[] NPCDialogue;
+
+    //name of NPC
+    public string NPCName;
+
 }
