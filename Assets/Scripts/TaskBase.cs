@@ -18,6 +18,8 @@ public class TaskBase : MonoBehaviour
     // Whether the task has been completed
     private bool taskCompleted = false;
 
+    public GameObject taskReward;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -87,6 +89,9 @@ public class TaskBase : MonoBehaviour
 
             // Increment the key by one
             key += "1";
+
+            GameObject reward = Instantiate(taskReward, transform.position, transform.rotation);
+            mainplayer.instance.keyItems.Add(reward);
         }
     }
 }
