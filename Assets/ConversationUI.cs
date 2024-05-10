@@ -75,7 +75,7 @@ public class ConversationUI : MonoBehaviour
     void checkForUpdate()
     {
         inconvo = true;
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.E))
         {
             if(!convoDone.All(x => x))
             {
