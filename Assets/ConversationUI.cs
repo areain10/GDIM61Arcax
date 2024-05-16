@@ -140,10 +140,12 @@ public class ConversationUI : MonoBehaviour
     //exit conversation
     public void exitConverstion()
     {
+
         convoText.Close();
         convoText = null;
         Time.timeScale = 1;
         gameObject.SetActive(false);
         mainplayer.instance.UpdatePlayerState(PlayerStates.Walking);
+        mainplayer.instance.GetComponent<conversationHandler>().inconvo = false;
     }
 }

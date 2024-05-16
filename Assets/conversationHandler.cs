@@ -7,7 +7,7 @@ public class conversationHandler : MonoBehaviour
 {
     GameObject interactObject;
     conversationData conversationData;
-    bool inconvo;
+    public bool inconvo;
 
     [SerializeField] private Canvas conversationCanvas;
     // Start is called before the first frame update
