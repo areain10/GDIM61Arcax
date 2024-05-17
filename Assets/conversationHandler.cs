@@ -7,11 +7,13 @@ public class conversationHandler : MonoBehaviour
 {
     GameObject interactObject;
     conversationData conversationData;
+    public bool inconvo;
 
     [SerializeField] private Canvas conversationCanvas;
     // Start is called before the first frame update
     void Start()
     {
+        inconvo = false;
         interactObject = null;
         conversationCanvas.gameObject.SetActive(false);
     }
@@ -40,13 +42,14 @@ public class conversationHandler : MonoBehaviour
 
     private bool handleInteract()
     {
-        if (conversationData != null && Input.GetKeyDown(KeyCode.E))
+        if (conversationData != null && Input.GetKeyDown(KeyCode.E) && inconvo == false)
         {
             conversationCanvas.gameObject.SetActive(true);
             mainplayer.instance.UpdatePlayerState(PlayerStates.Interacting);
             
             ConversationUI.instance.StartConvo(conversationData);
             ConversationUI.instance.inconvo = true;
+            inconvo = true;
             return true;
         }
         return false;
@@ -57,6 +60,7 @@ public class conversationHandler : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape) && conversationCanvas.gameObject.activeSelf == true)
         {
             //conversationCanvas.gameObject.SetActive(false);
+            inconvo = false;
             ConversationUI.instance.exitConverstion();
             
         }

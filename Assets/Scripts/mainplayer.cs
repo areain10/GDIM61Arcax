@@ -22,6 +22,8 @@ public class mainplayer : MonoBehaviour
 
     private PlayerStates playerState;
 
+    public List<GameObject> keyItems = new List<GameObject>();
+
     // Called when the script instance is being loaded
     void Awake()
     {
@@ -98,4 +100,6 @@ public class mainplayer : MonoBehaviour
         // Whenever the player state is updated, reset the velocity
         rb.velocity = Vector2.zero;
     }
+
+    
 }

@@ -75,7 +75,7 @@ public class ConversationUI : MonoBehaviour
     void checkForUpdate()
     {
         inconvo = true;
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.E))
         {
             if(!convoDone.All(x => x))
             {
@@ -140,10 +140,12 @@ public class ConversationUI : MonoBehaviour
     //exit conversation
     public void exitConverstion()
     {
+
         convoText.Close();
         convoText = null;
         Time.timeScale = 1;
         gameObject.SetActive(false);
         mainplayer.instance.UpdatePlayerState(PlayerStates.Walking);
+        mainplayer.instance.GetComponent<conversationHandler>().inconvo = false;
     }
 }

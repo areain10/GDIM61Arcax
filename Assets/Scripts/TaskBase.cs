@@ -13,10 +13,14 @@ public class TaskBase : MonoBehaviour
     public Button taskButton;
 
     // String representing the key
-    private string key = "Keys: ";
+    private string keys = "Keys: ";
+
+    private int keyNum = 0;
 
     // Whether the task has been completed
     private bool taskCompleted = false;
+
+    public GameObject taskReward;
 
     // Start is called before the first frame update
     void Start()
@@ -86,7 +90,10 @@ public class TaskBase : MonoBehaviour
             taskCompleted = true;
 
             // Increment the key by one
-            key += "1";
+            keyNum += 1;
+
+            GameObject reward = Instantiate(taskReward, transform.position, transform.rotation);
+            mainplayer.instance.keyItems.Add(reward);
         }
     }
 }
