@@ -29,7 +29,7 @@ public class TaskBase : MonoBehaviour
         taskCanvas.SetActive(false);
 
         // Add listener to the task button
-        taskButton.onClick.AddListener(CompleteTask);
+        //taskButton.onClick.AddListener(CompleteTask);
     }
 
     // Update is called once per frame
