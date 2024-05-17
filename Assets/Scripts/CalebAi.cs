@@ -108,7 +108,7 @@ public class CalebAi : MonoBehaviour
     void handleFlip()
     {
         float dotProduct = Vector2.Dot(Vector2.left, agent.velocity);
-        Debug.Log(rb.velocity.magnitude);
+        //Debug.Log(rb.velocity.magnitude);
         if(dotProduct < 0)
         {
             gameObject.transform.localScale = new Vector3(-sizeX, gameObject.transform.localScale.y);
