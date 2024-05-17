@@ -14,6 +14,7 @@ public class hamsterMinigame : MonoBehaviour,IDragHandler
     bool drag;
     public void OnDrag(PointerEventData eventData)
     {
+        Debug.Log("Drag");
         if(drag)
         {
             transform.position = eventData.position;
