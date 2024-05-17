@@ -12,9 +12,11 @@ public class hamsterMinigame : MonoBehaviour,IDragHandler
     [SerializeField] GameObject finish;
     [SerializeField] TaskBase task;
     bool drag;
+
+    
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("Drag");
+        
         if(drag)
         {
             transform.position = eventData.position;
@@ -57,4 +59,6 @@ public class hamsterMinigame : MonoBehaviour,IDragHandler
             task.CompleteTask();
         }
     }
+
+    
 }
