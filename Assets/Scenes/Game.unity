@@ -333,6 +333,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &104466611 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 978298892610867477, guid: d5aeca5f01331df41a94fc3dc11083d2, type: 3}
+  m_PrefabInstance: {fileID: 1209566515}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &124141599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -779,6 +784,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &247919167 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 978298892610867477, guid: 9dff7ae3826b0c84a987da20b98d864c, type: 3}
+  m_PrefabInstance: {fileID: 124141599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &278345400
 GameObject:
   m_ObjectHideFlags: 0
@@ -4304,6 +4314,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 833130816}
   m_CullTransparentMesh: 1
+--- !u!1 &881419808 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 978298892610867477, guid: 095a807386d26414dad38fce51fd57aa, type: 3}
+  m_PrefabInstance: {fileID: 1348633198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &912035544
 GameObject:
   m_ObjectHideFlags: 0
@@ -5482,6 +5497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1504324238}
   - component: {fileID: 1504324237}
+  - component: {fileID: 1504324239}
   m_Layer: 0
   m_Name: Saferoom
   m_TagString: Untagged
@@ -5549,6 +5565,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1504324239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504324236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 993ef9b41937c8849b7b50b16d63ae31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcsInSafeRoom:
+  - {fileID: 104466611}
+  - {fileID: 881419808}
+  - {fileID: 1817782255}
+  - {fileID: 247919167}
+  safeRoomCollider: {fileID: 1504324237}
 --- !u!1 &1534513156
 GameObject:
   m_ObjectHideFlags: 0
@@ -6140,6 +6174,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803949335}
   m_CullTransparentMesh: 1
+--- !u!1 &1817782255 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 978298892610867477, guid: 8995ae5119e457e4b84e668c76521acb, type: 3}
+  m_PrefabInstance: {fileID: 66013294}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1847850324
 GameObject:
   m_ObjectHideFlags: 0

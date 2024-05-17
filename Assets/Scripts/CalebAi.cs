@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,10 +13,12 @@ public class CalebAi : MonoBehaviour
     private Transform player; // Reference to the player's transform
     private Transform[] patrolPoints; // Array to store patrol points
     private int currentPatrolIndex = 0; // Index of current patrol point
+    private SafeRoomManager safeRoomManager; // Reference to the SafeRoomManager
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform; // Find player
+        safeRoomManager = FindObjectOfType<SafeRoomManager>(); // Find the SafeRoomManager
         FindPatrolPoints(); // Find patrol points
     }
 
@@ -26,34 +26,36 @@ public class CalebAi : MonoBehaviour
     {
         if (player != null)
         {
-            // Check if player is within field of vision
-            bool isPlayerInRange = Physics2D.OverlapCircle(transform.position, fieldOfVision, playerLayer);
-            Debug.Log("Player in range: " + isPlayerInRange);
+            // Check if player is inside the safe room
+            bool isPlayerInSafeRoom = IsPlayerInSafeRoom();
 
-            if (isPlayerInRange)
+            if (!isPlayerInSafeRoom)
             {
-                // Check if player is inside the safe room
-                bool isPlayerInSafeRoom = IsPlayerInSafeRoom();
-                Debug.Log("Player in safe room: " + isPlayerInSafeRoom);
+                // Check if player is within field of vision
+                bool isPlayerInRange = Physics2D.OverlapCircle(transform.position, fieldOfVision, playerLayer);
 
-                if (!isPlayerInSafeRoom)
+                if (isPlayerInRange)
                 {
                     // Move towards the player
                     transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
-                    Debug.Log("Moving towards player");
 
                     // Check if NPC caught the player
                     float distanceToPlayer = Vector2.Distance(transform.position, player.position);
                     if (distanceToPlayer < catchDistance)
                     {
-                        // End the game or take appropriate action
-                        GameOver();
+                        // Handle player caught
+                        PlayerCaught();
                     }
+                }
+                else
+                {
+                    // Roam around the halls
+                    Patrol();
                 }
             }
             else
             {
-                // Roam around the halls
+                // Player is in the safe room, return to patrolling
                 Patrol();
             }
         }
@@ -66,7 +68,6 @@ public class CalebAi : MonoBehaviour
         // Move towards the next patrol point
         Transform targetPoint = patrolPoints[currentPatrolIndex];
         transform.position = Vector2.MoveTowards(transform.position, targetPoint.position, moveSpeed * Time.deltaTime);
-        Debug.Log("Moving towards patrol point: " + targetPoint.name);
 
         // Check if reached the patrol point
         if (Vector2.Distance(transform.position, targetPoint.position) < 0.1f)
@@ -94,7 +95,24 @@ public class CalebAi : MonoBehaviour
         {
             patrolPoints[i] = patrolPointObjects[i].transform;
         }
-        Debug.Log("Patrol points found: " + patrolPoints.Length);
+    }
+
+    private void PlayerCaught()
+    {
+        if (safeRoomManager.AreAllNpcsKilled())
+        {
+            GameOver();
+        }
+        else
+        {
+            safeRoomManager.KillNpc();
+
+            // Update the number of killed NPCs in PlayerPrefs
+            int killedNpcs = PlayerPrefs.GetInt("KilledNpcs", 0);
+            PlayerPrefs.SetInt("KilledNpcs", killedNpcs + 1);
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -106,7 +124,11 @@ public class CalebAi : MonoBehaviour
 
     private void GameOver()
     {
+        // Clear the killed NPCs count
+        PlayerPrefs.DeleteKey("KilledNpcs");
+
+        // You can implement your game over logic here
         Debug.Log("Game Over!");
-        SceneManager.LoadScene("GameOver");
+        SceneManager.LoadScene("GameOver"); // Load the game over scene
     }
 }
