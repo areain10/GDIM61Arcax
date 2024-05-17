@@ -5225,7 +5225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1260542615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5447,7 +5447,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1387949433
 Transform:
   m_ObjectHideFlags: 0
@@ -6919,19 +6919,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &2138499214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2138499207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33d73688b0b381c47a6c50dee3454f57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  safeRoomCollider: {fileID: 1504324237}
 --- !u!195 &2138499220
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6954,6 +6941,30 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2138499221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138499207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4320b43734a919043969d89bd925cb38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  fieldOfVision: 5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  catchDistance: 1
+  safeRoomCollider: {fileID: 1504324237}
+  patrolPointObjects:
+  - {fileID: 641886130}
+  - {fileID: 1857753528}
+  - {fileID: 234874027}
+  - {fileID: 524991478}
 --- !u!1001 &1026457875920170563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7071,11 +7082,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1214447244055545043, guid: ec92883a61dc11e4da69849e73bb1e6b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.86
+      value: -17.74
       objectReference: {fileID: 0}
     - target: {fileID: 1214447244055545043, guid: ec92883a61dc11e4da69849e73bb1e6b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.69
+      value: 4.68
       objectReference: {fileID: 0}
     - target: {fileID: 1214447244055545043, guid: ec92883a61dc11e4da69849e73bb1e6b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7118,10 +7129,10 @@ PrefabInstance:
       addedObject: {fileID: 2138499213}
     - targetCorrespondingSourceObject: {fileID: 978298892610867477, guid: ec92883a61dc11e4da69849e73bb1e6b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2138499214}
+      addedObject: {fileID: 2138499220}
     - targetCorrespondingSourceObject: {fileID: 978298892610867477, guid: ec92883a61dc11e4da69849e73bb1e6b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2138499220}
+      addedObject: {fileID: 2138499221}
   m_SourcePrefab: {fileID: 100100000, guid: ec92883a61dc11e4da69849e73bb1e6b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

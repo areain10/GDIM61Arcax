@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CalebAi : MonoBehaviour
 {
@@ -8,10 +9,11 @@ public class CalebAi : MonoBehaviour
     public float fieldOfVision = 5f; // Field of vision radius
     public LayerMask playerLayer; // Layer where the player character is placed
     public float catchDistance = 1f; // Distance to catch the player
-    public GameObject safeRoom; // Reference to the safe room GameObject
+    public Collider2D safeRoomCollider; // Reference to the safe room Collider2D
+    public GameObject[] patrolPointObjects; // Array to store patrol point GameObjects
 
     private Transform player; // Reference to the player's transform
-    [SerializeField] private Vector2[] patrolPoints; // Array to store patrol points
+    private Transform[] patrolPoints; // Array to store patrol points
     private int currentPatrolIndex = 0; // Index of current patrol point
 
     private void Start()
@@ -26,16 +28,19 @@ public class CalebAi : MonoBehaviour
         {
             // Check if player is within field of vision
             bool isPlayerInRange = Physics2D.OverlapCircle(transform.position, fieldOfVision, playerLayer);
+            Debug.Log("Player in range: " + isPlayerInRange);
 
             if (isPlayerInRange)
             {
                 // Check if player is inside the safe room
                 bool isPlayerInSafeRoom = IsPlayerInSafeRoom();
+                Debug.Log("Player in safe room: " + isPlayerInSafeRoom);
 
                 if (!isPlayerInSafeRoom)
                 {
                     // Move towards the player
                     transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
+                    Debug.Log("Moving towards player");
 
                     // Check if NPC caught the player
                     float distanceToPlayer = Vector2.Distance(transform.position, player.position);
@@ -56,11 +61,15 @@ public class CalebAi : MonoBehaviour
 
     private void Patrol()
     {
+        if (patrolPoints.Length == 0) return;
+
         // Move towards the next patrol point
-        transform.position = Vector2.MoveTowards(transform.position, patrolPoints[currentPatrolIndex], moveSpeed * Time.deltaTime);
+        Transform targetPoint = patrolPoints[currentPatrolIndex];
+        transform.position = Vector2.MoveTowards(transform.position, targetPoint.position, moveSpeed * Time.deltaTime);
+        Debug.Log("Moving towards patrol point: " + targetPoint.name);
 
         // Check if reached the patrol point
-        if (Vector2.Distance(transform.position, patrolPoints[currentPatrolIndex]) < 0.1f)
+        if (Vector2.Distance(transform.position, targetPoint.position) < 0.1f)
         {
             // Move to the next patrol point
             currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
@@ -69,28 +78,23 @@ public class CalebAi : MonoBehaviour
 
     private bool IsPlayerInSafeRoom()
     {
-        // Check if player is inside the safe room
-        if (safeRoom != null)
+        // Check if player's collider is overlapping with the safe room collider
+        if (safeRoomCollider != null && player != null)
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(player.position, 0.1f);
-            foreach (Collider2D collider in colliders)
-            {
-                if (collider.gameObject == safeRoom)
-                {
-                    return true;
-                }
-            }
+            return safeRoomCollider.OverlapPoint(player.position);
         }
         return false;
     }
 
     private void FindPatrolPoints()
     {
-        // You can set up patrol points manually or programmatically based on your level design
-        // For simplicity, let's assume we have two patrol points
-        patrolPoints = new Vector2[2];
-        patrolPoints[0] = transform.position + new Vector3(5f, 0f); // Example patrol point 1
-        patrolPoints[1] = transform.position - new Vector3(5f, 0f); // Example patrol point 2
+        // Convert patrol point GameObjects to their transforms
+        patrolPoints = new Transform[patrolPointObjects.Length];
+        for (int i = 0; i < patrolPointObjects.Length; i++)
+        {
+            patrolPoints[i] = patrolPointObjects[i].transform;
+        }
+        Debug.Log("Patrol points found: " + patrolPoints.Length);
     }
 
     private void OnDrawGizmosSelected()
@@ -102,9 +106,7 @@ public class CalebAi : MonoBehaviour
 
     private void GameOver()
     {
-        // You can implement your game over logic here
         Debug.Log("Game Over!");
-        // For example, you can reload the scene or display a game over screen
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("GameOver");
     }
 }
