@@ -5,6 +5,7 @@ public class SafeRoomManager : MonoBehaviour
 {
     public List<GameObject> npcsInSafeRoom;
     public Collider2D safeRoomCollider; // Reference to the safe room Collider2D
+    public Transform startLocation;
 
     private void Start()
     {
@@ -19,17 +20,18 @@ public class SafeRoomManager : MonoBehaviour
         }
 
         // Remove the NPCs that were killed in previous attempts
-        int killedNpcs = PlayerPrefs.GetInt("KilledNpcs", 0);
+        /*int killedNpcs = PlayerPrefs.GetInt("KilledNpcs", 0);
         for (int i = 0; i < killedNpcs; i++)
         {
             KillNpc();
-        }
+        }*/
     }
 
     public void KillNpc()
     {
         if (npcsInSafeRoom.Count > 0)
         {
+            mainplayer.instance.gameObject.transform.position = startLocation.position;
             GameObject npcToKill = npcsInSafeRoom[0];
             npcsInSafeRoom.RemoveAt(0);
             Destroy(npcToKill);
